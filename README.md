@@ -1,16 +1,16 @@
 # HW-03
 
-## 1. Http ('src/server.mjs')
+## 1. Http ('src/server.js')
 
 Сервер на `net.createServer` (без `http`/`https`), порт **3000**.
 
 ### Запуск
 
 ```bash
-node src/server.mjs
+node src/server.js
 ```
 
-## 2. Https ('src/https-server.mjs')
+## 2. Https ('src/https-server.js')
 
 Сервер на tls.createServer (без модуля https), порт 3443, самопідписаний сертифікат.
 
@@ -18,13 +18,13 @@ node src/server.mjs
 
 ```bash
 openssl req -x509 -newkey rsa:2048 -nodes \
-  -keyout ca-key.pem -out ca-cert.pem -days 365
+  -keyout ca-key.pem -out ca-cert.pem -days 365 -subj "/CN=localhost"
 ```
 
 ### Запуск
 
 ```bash
-node src/server.mjs
+node src/https-server.js
 ```
 
 ## 3. Debug

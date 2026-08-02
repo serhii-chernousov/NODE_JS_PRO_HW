@@ -10,7 +10,7 @@ export const parseRequest = (request) => {
   const [method, path] = requestLine.split(" ");
   const headersList = headers.reduce((acc, header) => {
     const [key, value] = header.split(": ");
-    acc.push(`${key}: ${value}`);
+    acc.push(`${key.toLowerCase()}: ${value}`);
     return acc;
   }, []);
 
@@ -38,4 +38,38 @@ export const ROUTES = {
     console.log(body);
     socket.write(makeResponse("200 OK", body));
   },
+};
+
+export const createServerSocket = (socket) => {
+  let buffer = "";
+
+  socket.on("data", (data) => {
+    buffer += data.toString("latin1");
+    try {
+      const request = parseRequest(buffer);
+      if (!request) {
+        return;
+      }
+      console.log(request);
+      const { method, path, headersList } = request;
+
+      const route = ROUTES[path];
+      if (route) {
+        route(socket, headersList);
+      } else {
+        socket.write(makeResponse("404 Not Found", "404 Not Found"));
+      }
+      socket.end();
+    } catch (error) {
+      console.error("Error:", error);
+      socket.write(
+        makeResponse("500 Internal Server Error", "Internal Server Error"),
+      );
+      socket.end();
+    }
+  });
+
+  socket.on("error", (err) => {
+    console.error("Socket error:", err);
+  });
 };
