@@ -32,16 +32,19 @@ node src/server.mjs
 ### Команда
 
 ```bash
-node src/server.mjs
+openssl s_client -connect localhost:3443 -servername localhost
 ```
 
 ### Фрагмет відповіді
 
-```Start Time: 1785689504
-    Timeout   : 7200 (sec)
-    Verify return code: 18 (self-signed certificate)
-    Extended master secret: no
-    Max Early Data: 0
+```Connecting to ::1
+CONNECTED(00000005)
+Can't use SSL_get_servername
+depth=0 C=AU, ST=Some-State, O=Internet Widgits Pty Ltd
+verify error:num=18:self-signed certificate
+verify return:1
+depth=0 C=AU, ST=Some-State, O=Internet Widgits Pty Ltd
+verify return:1
 ```
 
 ### Пояснення
