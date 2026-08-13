@@ -1,0 +1,9 @@
+services:
+  app:
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./src:/app/src
+    command: ["node", "--watch", "src/server.mjs"]

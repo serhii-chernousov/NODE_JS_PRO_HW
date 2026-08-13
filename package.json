@@ -1,0 +1,19 @@
+{
+  "name": "l5-hw-docker-app",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "fastify": "^5.11.0",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.10"
+  }
+}
